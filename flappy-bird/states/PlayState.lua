@@ -13,14 +13,15 @@ function PlayState:init()
     self.pipePairs = {}
     self.timer = 0
     self.score = 0
+    self.timerMax = 2
 
     self.lastY = -PIPE_HEIGHT + math.random(80) + 20
 end
 
 function PlayState:update(dt)
     self.timer = self.timer + dt
-    
-    if self.timer > 2 then
+
+    if self.timer > self.timerMax then
         local y = math.max(-PIPE_HEIGHT + 10,
             math.min(self.lastY + math.random(-20, 20), VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT))
         self.lastY = y
@@ -28,6 +29,8 @@ function PlayState:update(dt)
         table.insert(self.pipePairs, PipePair(y))
 
         self.timer = 0
+
+        self.timerMax = math.random(2, 4)
     end
 
     for k, pair in pairs(self.pipePairs) do

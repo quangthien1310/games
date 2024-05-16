@@ -34,7 +34,9 @@ local BACKGROUND_LOOPING_POINT = 413
 
 local GROUND_LOOPING_POINT = 514
 
-local scrolling = true
+scrolling = true
+
+paused = false
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -54,7 +56,8 @@ function love.load()
         ['explosion'] = love.audio.newSource('explosion.wav', 'static'),
         ['hurt'] = love.audio.newSource('hurt.wav', 'static'),
         ['score'] = love.audio.newSource('score.wav', 'static'),
-        ['music'] = love.audio.newSource('marios_way.mp3', 'static')
+        ['music'] = love.audio.newSource('marios_way.mp3', 'static'),
+        ['pause'] = love.audio.newSource('pause.wav', 'static')
     }
 
     sounds['music']:setLooping(true)
@@ -108,11 +111,14 @@ function love.mouse.wasPressed(key)
 end
 
 function love.update(dt)
-    backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) %
+
+    if scrolling == true then
+        backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) %
         BACKGROUND_LOOPING_POINT
 
-    groundScroll = (groundScroll + GROUND_SRCOLL_SPEED * dt) %
-        GROUND_LOOPING_POINT
+        groundScroll = (groundScroll + GROUND_SRCOLL_SPEED * dt) %
+            GROUND_LOOPING_POINT
+    end
 
     gStateMachine:update(dt)
 

@@ -30,5 +30,22 @@ function Ball:reset()
 end
 
 function Ball:update(dt)
-    
+    self.x = self.x + self.dx * dt
+    self.y = self.y + self.dy * dt
+
+    if self.x <= 0 then
+        self.x = 0
+        self.dx = -self.dx
+        gSounds['wall-hit']:play()
+    end
+
+    if self.x >= VIRTUAL_WIDTH - 8 then
+        self.x = VIRTUAL_WIDTH - 8
+        self.dx = -self.dx
+        gSounds['wall-hit']:play()
+    end
+end
+
+function Ball:render()
+    love.graphics.draw(gTextures['main'], gFrames['balls'][self.skin], self.x, self.y)
 end

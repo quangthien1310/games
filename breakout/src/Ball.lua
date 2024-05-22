@@ -44,6 +44,12 @@ function Ball:update(dt)
         self.dx = -self.dx
         gSounds['wall-hit']:play()
     end
+
+    if self.y <= 0 then
+        self.y = 0
+        self.dy = -self.dy
+        gSounds['wall-hit']:play()
+    end
 end
 
 function Ball:render()

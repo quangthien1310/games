@@ -43,7 +43,7 @@ function love.load()
         ['high-score'] = love.audio.newSource('sounds/high_score.wav', 'static'),
         ['hurt'] = love.audio.newSource('sounds/hurt.wav', 'static'),
 
-        ['music'] = love.audio.newSource('sounds/hurt.wav', 'static'),
+        ['music'] = love.audio.newSource('sounds/music.wav', 'static'),
 
         ['no-select'] = love.audio.newSource('sounds/no-select.wav', 'static'),
         ['paddle-hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
@@ -61,11 +61,15 @@ function love.load()
         ['serve'] = function() return ServeState() end,
         ['game-over'] = function() return GameOverState() end,
         ['victory'] = function() return VictoryState() end,
-        ['high-scores'] = function() return HighScoreState() end
+        ['high-scores'] = function() return HighScoreState() end,
+        ['enter-high-score'] = function() return EnterHighScoreState() end
     }
     gStateMachine:change('start', {
         highScores = loadHighScores()
     })
+
+    --gSounds['music']:play()
+    --gSounds['music']:setLooping(true)
 
     love.keyboard.keysPressed = {}
 end

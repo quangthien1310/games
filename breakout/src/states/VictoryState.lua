@@ -6,19 +6,23 @@ function VictoryState:enter(params)
     self.health = params.health
     self.score = params.score
     self.ball = params.ball
+    self.highScores = params.highScores
 end
 
 function VictoryState:update(dt)
+    self.paddle:update(dt)
+
     self.ball.x = self.paddle.x + (self.paddle.width / 2) - 4
     self.ball.y = self.paddle.y - 8
 
-    if love.keyboard.wasPressed('enter') or love.graphics.wasPressed('return') then
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         gStateMachine:change('serve', {
             level = self.level + 1,
             bricks = LevelMaker.createMap(self.level + 1),
             paddle = self.paddle,
             health = self.health,
-            score = self.score
+            score = self.score,
+            highScores = self.highScores
         })
     end
 end

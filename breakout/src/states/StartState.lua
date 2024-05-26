@@ -16,13 +16,8 @@ function StartState:update(dt)
         gSounds['confirm']:play()
 
         if highlighted == 1 then
-            gStateMachine:change('serve', {
-                paddle = Paddle(1),
-                bricks = LevelMaker.createMap(1),
-                health = 3,
-                score = 10000,
-                highScores = self.highScores,
-                level = 1
+            gStateMachine:change('paddle-select', {
+                highScores = self.highScores
             })
         else
             gStateMachine:change('high-scores', {

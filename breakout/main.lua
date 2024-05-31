@@ -122,8 +122,8 @@ function loadHighScores()
     if not love.filesystem.getInfo('breakout.lst') then
         local scores = ''
         for i = 10, 1, -1 do
-            score = score .. 'CTO\n'
-            score = score .. tostring(i * 1000) .. '\n'
+            scores = scores .. 'CTO\n'
+            scores = scores .. tostring(i * 1000) .. '\n'
         end
 
         love.filesystem.write('breakout.lst', scores)
@@ -177,7 +177,7 @@ function renderHealth(health)
     end
 
     for i = 1, 3 - health do
-        love.graphics.draw(gTextures['hearts'], gFrames['hearts'][2], 4)
+        love.graphics.draw(gTextures['hearts'], gFrames['hearts'][2], healthX, 4)
         healthX = healthX + 11
     end
 end

@@ -78,7 +78,7 @@ function EnterHighScoreState:render()
     if highlightedChar == 2 then
         love.graphics.setColor(103/255, 1, 1, 1)
     end
-    love.graphics.print(string.char(chars[2]), VIRTUAL_WIDTH /2 - 6, VIRTUAL_HEIGHT / 2)
+    love.graphics.print(string.char(chars[2]), VIRTUAL_WIDTH / 2 - 6, VIRTUAL_HEIGHT / 2)
     love.graphics.setColor(1, 1, 1, 1)
 
     if highlightedChar == 3 then

@@ -7,6 +7,7 @@ function VictoryState:enter(params)
     self.score = params.score
     self.ball = params.ball
     self.highScores = params.highScores
+    self.recoverPoints = params.recoverPoints
 end
 
 function VictoryState:update(dt)
@@ -22,7 +23,8 @@ function VictoryState:update(dt)
             paddle = self.paddle,
             health = self.health,
             score = self.score,
-            highScores = self.highScores
+            highScores = self.highScores,
+            recoverPoints = self.recoverPoints
         })
     end
 end
@@ -35,7 +37,8 @@ function VictoryState:render()
     renderScore(self.score)
 
     love.graphics.setFont(gFonts['large'])
-    love.graphics.printf('Level ' ..tostring(self.level) .. ' complete!', 0, VIRTUAL_HEIGHT / 4, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Level ' ..tostring(self.level) .. ' complete!', 
+        0, VIRTUAL_HEIGHT / 4, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setFont(gFonts['medium'])
     love.graphics.printf('Press Enter to serve!', 0, VIRTUAL_HEIGHT / 2, VIRTUAL_WIDTH, 'center')

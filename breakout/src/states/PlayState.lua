@@ -9,6 +9,8 @@ function PlayState:enter(params)
     self.ball = params.ball
     self.level = params.level
 
+    self.recoverPoints = 5000
+
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-50, -60)
 end
@@ -35,7 +37,7 @@ function PlayState:update(dt)
         self.ball.dy = -self.ball.dy
 
         if self.ball.x < self.paddle.x + (self.paddle.width / 2) and self.paddle.dx < 0 then
-            self.ball.dx = -50 + (8 * (self.paddle.x + self.paddle.width / 2 - self.ball.x))
+            self.ball.dx = -50 + -(8 * (self.paddle.x + self.paddle.width / 2 - self.ball.x))
         elseif self.ball.x > self.paddle.x + (self.paddle.width / 2) and self.paddle.dx > 0 then
             self.ball.dx = 50 + (8 * math.abs(self.paddle.x + self.paddle.width / 2 - self.ball.x))
         end
@@ -50,6 +52,14 @@ function PlayState:update(dt)
 
             brick:hit()
 
+            if self.score > self.recoverPoints then
+                self.health = math.min(3, self.health + 1)
+
+                self.recoverPoints = self.recoverPoints + math.min(100000, self.recoverPoints * 2)
+
+                gSounds['recover']:play()
+            end
+
             if self:checkVictory() then
                 gSounds['victory']:play()
 
@@ -59,7 +69,8 @@ function PlayState:update(dt)
                     health = self.health,
                     score = self.score,
                     highScores = self.highScores,
-                    ball = self.ball
+                    ball = self.ball,
+                    recoverPoints = self.recoverPoints
                 })
             end
 
@@ -77,7 +88,9 @@ function PlayState:update(dt)
                 self.ball.y = brick.y + 16
             end
 
-            self.ball.dy = self.ball.dy * 1.02
+            if math.abs(self.ball.dy) < 150 then
+                self.ball.dy = self.ball.dy * 1.02
+            end
             break
         end
     end
@@ -98,7 +111,8 @@ function PlayState:update(dt)
                 health = self.health,
                 score = self.score,
                 highScores = self.highScores,
-                level = self.level
+                level = self.level,
+                recoverPoints = self.recoverPoints
             })
         end
     end

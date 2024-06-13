@@ -12,7 +12,7 @@ function StateMachine:init(states)
 end
 
 function StateMachine:change(stateName, enterParams)
-    assert(self.states(stateName))
+    assert(self.states[stateName])
     self.current:exit()
     self.current = self.states[stateName]()
     self.current:enter(enterParams)

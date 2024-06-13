@@ -1,4 +1,4 @@
-BeginGameState = Classs{__includes = BaseState}
+BeginGameState = Class{__includes = BaseState}
 
 function BeginGameState:init()
     

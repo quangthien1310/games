@@ -1,4 +1,4 @@
-PlayState = {__includes = BaseState}
+PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
     self.transitionAlpha = 1
@@ -11,6 +11,10 @@ function PlayState:init()
 
     self.score = 0
     self.timer = 60
+
+    Timer.every(0.5, function()
+        self.rectHighlighted = not self.rectHighlighted
+    end)
 
     Timer.every(1, function()
         self.timer = self.timer - 1
@@ -61,7 +65,7 @@ function PlayState:update(dt)
         elseif love.keyboard.wasPressed('down') then
             self.boardHighlightY = math.min(7, self.boardHighlightY + 1)
             gSounds['select']:play()
-        elseif love.keyboard.wasPressed('lelf') then
+        elseif love.keyboard.wasPressed('left') then
             self.boardHighlightX = math.max(0, self.boardHighlightX - 1)
             gSounds['select']:play()
         elseif love.keyboard.wasPressed('right') then
@@ -75,9 +79,9 @@ function PlayState:update(dt)
 
             if not self.highlightedTile then
                 self.highlightedTile = self.board.tiles[y][x]
-            elseif self.highlightedTile = self.board.tiles[y][x] then
+            elseif self.highlightedTile == self.board.tiles[y][x] then
                 self.highlightedTile = nil
-            elseif math.abs(self.highlightedTile.gridX - x) + math.abs(self.boardHighlightY - y) > 1 then
+            elseif math.abs(self.highlightedTile.gridX - x) + math.abs(self.highlightedTile.gridY - y) > 1 then
                 gSounds['error']:play()
                 self.highlightedTile = nil
             else
@@ -91,8 +95,8 @@ function PlayState:update(dt)
                 newTile.gridX = tempX
                 newTile.gridY = tempY
 
-                self.board.tiles[self.highlightedTile.gridX][self.highlightedTile.gridY] = self.highlightedTile
-                self.board.tiles[newTile.gridX][newTile.gridY] = newTile
+                self.board.tiles[self.highlightedTile.gridY][self.highlightedTile.gridX] = self.highlightedTile
+                self.board.tiles[newTile.gridY][newTile.gridX] = newTile
 
                 Timer.tween(0.1, {
                     [self.highlightedTile] = {x = newTile.x, y = newTile.y},
@@ -105,7 +109,7 @@ function PlayState:update(dt)
         end
     end
 
-    Timer:update(dt)
+    Timer.update(dt)
 end
 
 function PlayState:calculateMatches()
@@ -121,11 +125,11 @@ function PlayState:calculateMatches()
             self.score = self.score + #match * 50
         end
 
-        self.board:removeMatches
+        self.board:removeMatches()
 
-        local tilesToFall = self.board:getFallingTiles
+        local tilesToFall = self.board:getFallingTiles()
 
-        Timer,tween(0.25, tilesToFall):finish(function()
+        Timer.tween(0.25, tilesToFall):finish(function()
             self:calculateMatches()
         end)
     else

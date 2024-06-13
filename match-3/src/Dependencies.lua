@@ -20,15 +20,15 @@ gSounds = {
     ['music'] = love.audio.newSource('sounds/music3.mp3', 'static'),
     ['select'] = love.audio.newSource('sounds/select.wav', 'static'),
     ['clock'] = love.audio.newSource('sounds/clock.wav', 'static'),
-    ['error'] = love.audio.newSource('sounds/error.wav'. 'static'),
+    ['error'] = love.audio.newSource('sounds/error.wav', 'static'),
     ['game-over'] = love.audio.newSource('sounds/game-over.wav', 'static'),
     ['match'] = love.audio.newSource('sounds/match.wav', 'static'),
     ['next-level'] = love.audio.newSource('sounds/next-level.wav', 'static')
 }
 
 gTextures = {
-    ['main'] = love.graphics.newImage('graphics/match3.png', 'static'),
-    ['background'] = love.graphics.newImage('graphics/background.png', 'static')
+    ['main'] = love.graphics.newImage('graphics/match3.png'),
+    ['background'] = love.graphics.newImage('graphics/background.png')
 }
 
 gFrames = {

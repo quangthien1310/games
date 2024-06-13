@@ -23,8 +23,8 @@ function love.load()
         canvas = true
     })
 
-    gSounds:['music']:setLooping(true)
-    gSounds:['music']:play()
+    gSounds['music']:setLooping(true)
+    gSounds['music']:play()
 
     gStateMachine = StateMachine {
         ['start'] = function() return StartState() end,
@@ -47,8 +47,8 @@ function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
 end
 
-function love.wasPressed(key)
-    if love.keyboard.leysPressed[key] = true then
+function love.keyboard.wasPressed(key)
+    if love.keyboard.keysPressed[key] == true then
         return true
     else
         return false

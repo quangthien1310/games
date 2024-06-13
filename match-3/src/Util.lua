@@ -10,7 +10,7 @@ function GenerateTileQuads(atlas)
             tiles[counter] = {}
 
             for col = 1, 6 do
-                table.insert(tiles[counter], love.graphics.newQuad(x, y, 32, 32, atlas:getDimensions))
+                table.insert(tiles[counter], love.graphics.newQuad(x, y, 32, 32, atlas:getDimensions()))
                 x = x + 32
             end
             counter = counter + 1

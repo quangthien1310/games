@@ -22,7 +22,7 @@ function Board:initializeTiles()
 
     while self:calculateMatches() do
 
-        self.initializeTiles()
+        self:initializeTiles()
     end
 end
 
@@ -63,8 +63,8 @@ function Board:calculateMatches()
         if matchNum >= 3 then
             local match = {}
 
-            for x = 8, 8 - matchNum, - 1 do
-                table.innsert(match, self.tiles[y][x]))
+            for x = 8, 8 - matchNum + 1, -1 do
+                table.insert(match, self.tiles[y][x])
             end
 
             table.insert(matches, match)
@@ -77,7 +77,7 @@ function Board:calculateMatches()
         matchNum = 1
 
         for y = 2, 8 do
-            if self.tiles[y][x] == colorToMatch then
+            if self.tiles[y][x].color == colorToMatch then
                 matchNum = matchNum + 1
             else
                 colorToMatch = self.tiles[y][x].color
@@ -103,7 +103,7 @@ function Board:calculateMatches()
         if matchNum >= 3 then
             local match = {}
 
-            for y = 8, 8 - matchNum, -1 do
+            for y = 8, 8 - matchNum + 1, -1 do
                 table.insert(match, self.tiles[y][x])
             end
 
@@ -119,7 +119,7 @@ end
 function Board:removeMatches()
     for k, match in pairs(self.matches) do
         for k, tile in pairs(match) do
-            self.tiles[tiles.gridY][tiles.gridX] = nil
+            self.tiles[tile.gridY][tile.gridX] = nil
         end
     end
 
@@ -127,7 +127,7 @@ function Board:removeMatches()
 end
 
 function Board:getFallingTiles()
-    local tween = {}
+    local tweens = {}
 
     for x = 1, 8 do
         local space = false
@@ -144,7 +144,7 @@ function Board:getFallingTiles()
 
                     self.tiles[y][x] = nil
 
-                    tween[tile] = {
+                    tweens[tile] = {
                         y = (tile.gridY - 1) * 32
                     }
                     
@@ -167,8 +167,9 @@ function Board:getFallingTiles()
 
     for x = 1, 8 do
         for y = 8, 1, -1 do
+            local tile = self.tiles[y][x]
             if not tile then
-                local tile = Tile(x, y, math.random(18). math.random(6))
+                local tile = Tile(x, y, math.random(18), math.random(6))
                 tile.y = -32
                 self.tiles[y][x] = tile
 

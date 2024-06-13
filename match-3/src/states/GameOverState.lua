@@ -1,4 +1,4 @@
-GameOverState  = Class{__include = BaseState}
+GameOverState  = Class{__includes = BaseState}
 
 function GameOverState:init()
 
@@ -15,12 +15,12 @@ function GameOverState:update(dt)
 end
 
 function GameOverState:render()
-    love.graphics.setFont(gFonts['larger'])
+    love.graphics.setFont(gFonts['large'])
 
-    love.graphics.setColor(56, 56, 56, 234)
+    love.graphics.setColor(56/255, 56/255, 56/255, 234/255)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 64, 64, 128, 136, 4)
 
-    love.graphics.setColor(99, 155, 255, 255)
+    love.graphics.setColor(99/255, 155/255, 255/255, 255/255)
     love.graphics.printf('GAME OVER', VIRTUAL_WIDTH / 2 - 64, 64, 128, 'center')
     love.graphics.setFont(gFonts['medium'])
     love.graphics.printf('Your Score: ' .. tostring(self.score), VIRTUAL_WIDTH / 2 - 64, 140, 128, 'center')

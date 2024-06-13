@@ -1,6 +1,6 @@
 local positions = {}
 
-StartState = {__includes = BaseState}
+StartState = Class{__includes = BaseState}
 
 function StartState:init()
     self.currentMenuItem = 1
@@ -41,7 +41,7 @@ function StartState:init()
 end
 
 function StartState:update(dt)
-    if love.keyboard.wasPressed('space') then
+    if love.keyboard.wasPressed('escape') then
         love.event.quit()
     end
 
@@ -114,7 +114,7 @@ function StartState:drawOptions(y)
     love.graphics.setColor(1, 1, 1, 128/255)
     love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 76, VIRTUAL_HEIGHT / 2 + y - 11, 150, 58, 6)
 
-    love,graphics.setFont(gFonts['medium'])
+    love.graphics.setFont(gFonts['medium'])
     self:drawTextShadow('Start', VIRTUAL_HEIGHT / 2 + y + 8)
 
     if self.currentMenuItem == 1 then
